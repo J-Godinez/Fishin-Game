@@ -1,6 +1,11 @@
 extends CharacterBody3D
 
+const FISHING_LINE = preload("res://Decoration/fishing_line.tscn")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var pole: MeshInstance3D = $SpringArm3D/pole
+@onready var spool: Marker3D = $SpringArm3D/pole/Spool
+@onready var first_ring: Marker3D = $SpringArm3D/pole/FirstRing
+@onready var tip: Marker3D = $SpringArm3D/pole/Tip
 
 
 const SPEED = 5.0
@@ -11,6 +16,7 @@ var holstered:bool = true
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	create_base_fishing_line()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion :
@@ -56,3 +62,17 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+
+func create_base_fishing_line():
+	var line = create_line_sprite(spool.position,first_ring.position)
+	pole.add_child(line)
+	line = create_line_sprite(first_ring.position, tip.position)
+	pole.add_child(line)
+
+func create_line_sprite(from:Vector3, to:Vector3):
+	var line:Sprite3D =  FISHING_LINE.instantiate()
+	line.scale.z = (to-from).length() * 100
+	line.position = from
+	line.look_at_from_position(from,to)
+	return line
