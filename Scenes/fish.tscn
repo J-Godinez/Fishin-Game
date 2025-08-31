@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://hja6ejfm1yob"]
+[gd_scene load_steps=10 format=3 uid="uid://hja6ejfm1yob"]
 
 [ext_resource type="PackedScene" uid="uid://5h8oqj016kmf" path="res://Assets/Small Fish.glb" id="1_twvwo"]
 
@@ -76,6 +76,11 @@ _data = {
 &"RESET": SubResource("Animation_urn1o")
 }
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_twvwo"]
+resource_local_to_scene = true
+height = 3.6302
+radius = 6.09521
+
 [node name="Fish" type="Path3D"]
 curve = SubResource("Curve3D_twvwo")
 
@@ -96,3 +101,9 @@ root_node = NodePath("../Small Fish")
 libraries = {
 &"": SubResource("AnimationLibrary_jdl8t")
 }
+
+[node name="Bobber Detection Area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bobber Detection Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.23117, 1.50343, 0.137761)
+shape = SubResource("CylinderShape3D_twvwo")
