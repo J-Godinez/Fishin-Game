@@ -129,6 +129,8 @@ environment = SubResource("Environment_hg6w5")
 
 [node name="Player" parent="." instance=ExtResource("3_wnfdr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.6043, 0)
+SPEED = 5.0
+max_sprint = 3.0
 
 [node name="LakeSurface" parent="." instance=ExtResource("4_wnfdr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, -2.42973, 7.65936)

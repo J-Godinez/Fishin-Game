@@ -118,6 +118,9 @@ _data = {
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_6t5aa")
+cast_strength = 4.0
+SPEED = 2.5
+max_sprint = 2.5
 mouse_sensitivity = 0.004
 
 [node name="Head" type="Marker3D" parent="."]
@@ -137,7 +140,7 @@ shape = SubResource("SeparationRayShape3D_i3pqv")
 spring_length = 2.0
 
 [node name="pole" type="MeshInstance3D" parent="SpringArm3D"]
-transform = Transform3D(-0.000429154, -0.105579, -0.994411, -0.880167, -0.471972, 0.0504899, -0.474665, 0.875269, -0.0927241, 5.96046e-08, 0, -0.905665)
+transform = Transform3D(-0.000429154, -0.105578, -0.994411, -0.880167, -0.471972, 0.0504899, -0.474665, 0.875269, -0.0927241, 5.96046e-08, 0, -0.905665)
 rotation_edit_mode = 1
 visible = false
 mesh = SubResource("ArrayMesh_2hs0m")
@@ -150,7 +153,7 @@ transform = Transform3D(1, 2.98023e-08, 3.72529e-09, -2.98023e-08, 1, 0, 3.72529
 transform = Transform3D(1, 2.98023e-08, 3.72529e-09, -2.98023e-08, 1, 0, 3.72529e-09, -1.49012e-08, 1, 0.0884867, 0.345612, -0.0243465)
 
 [node name="Tip" type="Marker3D" parent="SpringArm3D/pole"]
-transform = Transform3D(1, 2.98023e-08, 3.72529e-09, -2.98023e-08, 1, 0, 3.72529e-09, -1.49012e-08, 1, 0.100586, 1.9849, -0.0208657)
+transform = Transform3D(1, 1.19209e-07, 3.72529e-09, 0, 1, 0, 1.11759e-08, -1.04308e-07, 1, 0.0956379, 1.99707, -0.0172495)
 
 [node name="Sprite3D" type="Sprite3D" parent="SpringArm3D/pole"]
 texture = SubResource("AtlasTexture_fkybt")
