@@ -5,9 +5,7 @@ var mesh_material:StandardMaterial3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(mesh_material)
 	mesh_material = mesh_instance_3d.get_surface_override_material(0)
-	print(mesh_material)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
