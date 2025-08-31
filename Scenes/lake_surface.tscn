@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://7qrxt0iwjoum"]
+
+[ext_resource type="Shader" uid="uid://b81cxic66aj6y" path="res://Assets/water.gdshader" id="1_o5h2o"]
+[ext_resource type="Texture2D" uid="uid://d1v53ivobcddu" path="res://Assets/water_texture.png" id="2_aetqb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a4dt0"]
+render_priority = 0
+shader = ExtResource("1_o5h2o")
+shader_parameter/slide_speed = 1.905
+shader_parameter/wobble_speed = 0.17
+shader_parameter/wobble_intensity = 0.4
+shader_parameter/texture_scale = 0.07
+shader_parameter/water = ExtResource("2_aetqb")
+
+[sub_resource type="QuadMesh" id="QuadMesh_n36a5"]
+material = SubResource("ShaderMaterial_a4dt0")
+size = Vector2(90.09, 93.37)
+orientation = 1
+
+[node name="LakeSurface" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_n36a5")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ct13yojq35okq"]
+[gd_scene load_steps=9 format=3 uid="uid://ct13yojq35okq"]
 
 [ext_resource type="Script" uid="uid://tpac7ld7a0ym" path="res://Scripts/space.gd" id="1_e7mvc"]
 [ext_resource type="PackedScene" uid="uid://d1d4u455e56w2" path="res://Scenes/ground.tscn" id="2_2fo43"]
 [ext_resource type="PackedScene" uid="uid://lrwh0vqdje4g" path="res://Scenes/player.tscn" id="3_wnfdr"]
+[ext_resource type="PackedScene" uid="uid://7qrxt0iwjoum" path="res://Scenes/lake_surface.tscn" id="4_wnfdr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_og2b5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,6 +18,8 @@ sky = SubResource("Sky_3beeg")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_wnfdr"]
+
 [node name="Space" type="Node3D"]
 script = ExtResource("1_e7mvc")
 size = 30
@@ -24,10 +27,16 @@ size = 30
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hg6w5")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.671048, -0.447721, 0.590966, 0, 0.797079, 0.603875, -0.741414, 0.405229, -0.534879, 12.4644, 15.8661, -11.8527)
-
 [node name="ground" parent="." instance=ExtResource("2_2fo43")]
 
 [node name="Player" parent="." instance=ExtResource("3_wnfdr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27.6043, 0)
+
+[node name="LakeSurface" parent="." instance=ExtResource("4_wnfdr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, -2.42973, 7.65936)
+
+[node name="Lake_Swim" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lake_Swim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.0725, -3.556, 3.15827)
+shape = SubResource("WorldBoundaryShape3D_wnfdr")
