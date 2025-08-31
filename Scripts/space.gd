@@ -7,18 +7,6 @@ const CACTUS_ZONE = preload("res://Decoration/cactus_zone.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var x = -(size/2.0)
-	var z = -(size/2.0)
-	var y = 0
-	for i in size:
-		for j in size:
-			add_block(x,y,z)
-			if !(i != 0 && i != size-1) && !(j != 0 && j != size-1):
-				for k in size-1:
-					add_block(x,k+1,z)
-			z += 1
-		x += 1
-		z = -(size/2.0)
 	for i in cactus.multimesh.instance_count:
 		var cactus_transform = cactus.multimesh.get_instance_transform(i)
 		var static_body = CACTUS_ZONE.instantiate()
@@ -36,3 +24,17 @@ func add_block(x,y,z):
 	block.position.y = y
 	block.position.z = z
 	add_child(block)
+	
+func draw_blocks(s):
+	var x = -(s/2.0)
+	var z = -(s/2.0)
+	var y = 0
+	for i in s:
+		for j in s:
+			add_block(x,y,z)
+			if !(i != 0 && i != s-1) && !(j != 0 && j != s-1):
+				for k in s-1:
+					add_block(x,k+1,z)
+			z += 1
+		x += 1
+		z = -(s/2.0)
