@@ -11,11 +11,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-
 func _on_mouse_entered() -> void:
 	mesh_material.emission_enabled = true
 	mesh_material.emission = Color.LAWN_GREEN
-
 
 func _on_mouse_exited() -> void:
 	mesh_material.emission_enabled = false
