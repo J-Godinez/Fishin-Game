@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw36r0ppktbvv"]
+
+[ext_resource type="Texture2D" uid="uid://badkm6hqv8mc0" path="res://Assets/fish_texture.png" id="1_86oyu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
+atlas = ExtResource("1_86oyu")
+region = Rect2(48, 23, 1, 3)
+
+[node name="FishingLine" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+offset = Vector2(0.5, 0)
+axis = 0
+texture_filter = 0
+texture = SubResource("AtlasTexture_fkybt")

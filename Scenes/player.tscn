@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://lrwh0vqdje4g"]
+[gd_scene load_steps=14 format=4 uid="uid://lrwh0vqdje4g"]
 
 [ext_resource type="Script" uid="uid://tlmurje1cshq" path="res://Scripts/player.gd" id="1_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://bdjdufye8ndb7" path="res://icon.svg" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://dnlebixg1884d" path="res://Assets/fishing_pole_fish_texture.png" id="3_fkybt"]
+[ext_resource type="Texture2D" uid="uid://badkm6hqv8mc0" path="res://Assets/fish_texture.png" id="4_vgqql"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
 
@@ -49,6 +50,10 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_o2vlr")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
+atlas = ExtResource("4_vgqql")
+region = Rect2(48, 23, 1, 3)
 
 [sub_resource type="Animation" id="Animation_hqtel"]
 length = 0.001
@@ -132,11 +137,23 @@ shape = SubResource("SeparationRayShape3D_i3pqv")
 spring_length = 2.0
 
 [node name="pole" type="MeshInstance3D" parent="SpringArm3D"]
-transform = Transform3D(-0.000429154, -0.105578, -0.994411, -0.880167, -0.471972, 0.0504899, -0.474665, 0.875269, -0.0927241, 5.96046e-08, 0, -0.905665)
+transform = Transform3D(-0.000429154, -0.105579, -0.994411, -0.880167, -0.471972, 0.0504899, -0.474665, 0.875269, -0.0927241, 5.96046e-08, 0, -0.905665)
 rotation_edit_mode = 1
 visible = false
 mesh = SubResource("ArrayMesh_2hs0m")
 skeleton = NodePath("")
+
+[node name="Spool" type="Marker3D" parent="SpringArm3D/pole"]
+transform = Transform3D(1, 2.98023e-08, 3.72529e-09, -2.98023e-08, 1, 0, 3.72529e-09, -1.49012e-08, 1, 0.118969, 0.0739369, 0.00035584)
+
+[node name="FirstRing" type="Marker3D" parent="SpringArm3D/pole"]
+transform = Transform3D(1, 2.98023e-08, 3.72529e-09, -2.98023e-08, 1, 0, 3.72529e-09, -1.49012e-08, 1, 0.0884867, 0.345612, -0.0243465)
+
+[node name="Tip" type="Marker3D" parent="SpringArm3D/pole"]
+transform = Transform3D(1, 2.98023e-08, 3.72529e-09, -2.98023e-08, 1, 0, 3.72529e-09, -1.49012e-08, 1, 0.100586, 1.9849, -0.0208657)
+
+[node name="Sprite3D" type="Sprite3D" parent="SpringArm3D/pole"]
+texture = SubResource("AtlasTexture_fkybt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
