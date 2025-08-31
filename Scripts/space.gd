@@ -1,6 +1,9 @@
 extends Node3D
+
 const BLOCK = preload("res://Scenes/block.tscn")
 @export var size:int = 10
+@onready var cactus: MultiMeshInstance3D = $Cactus
+const CACTUS_ZONE = preload("res://Decoration/cactus_zone.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,6 +19,11 @@ func _ready() -> void:
 			z += 1
 		x += 1
 		z = -(size/2.0)
+	for i in cactus.multimesh.instance_count:
+		var cactus_transform = cactus.multimesh.get_instance_transform(i)
+		var static_body = CACTUS_ZONE.instantiate()
+		static_body.transform = cactus_transform
+		add_child(static_body)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
