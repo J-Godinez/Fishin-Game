@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=4 uid="uid://lrwh0vqdje4g"]
 
-[ext_resource type="Texture2D" uid="uid://bdjdufye8ndb7" path="res://icon.svg" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://tlmurje1cshq" path="res://player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://dnlebixg1884d" path="res://Assets/fishing_pole_fish_texture.png" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://tlmurje1cshq" path="res://Scripts/player.gd" id="1_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://bdjdufye8ndb7" path="res://icon.svg" id="2_vgqql"]
+[ext_resource type="Texture2D" uid="uid://dnlebixg1884d" path="res://Assets/fishing_pole_fish_texture.png" id="3_fkybt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
 
@@ -13,7 +13,7 @@ slide_on_slope = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sweqy"]
 resource_name = "Material.001"
 cull_mode = 2
-albedo_texture = ExtResource("3_i3pqv")
+albedo_texture = ExtResource("3_fkybt")
 texture_filter = 2
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_o2vlr"]
@@ -50,33 +50,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_o2vlr")
 
-[sub_resource type="Animation" id="Animation_i3pqv"]
-resource_name = "holster"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SpringArm3D/pole:quaternion")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.866667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Quaternion(0.416959, -0.611997, -0.354506, 0.570903), Quaternion(0.704993, -0.12683, -0.695794, 0.0526368)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SpringArm3D/pole:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.87, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
 [sub_resource type="Animation" id="Animation_hqtel"]
 length = 0.001
 tracks/0/type = "value"
@@ -104,6 +77,33 @@ tracks/1/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_i3pqv"]
+resource_name = "holster"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpringArm3D/pole:quaternion")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.866667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Quaternion(0.416959, -0.611997, -0.354506, 0.570903), Quaternion(0.704993, -0.12683, -0.695794, 0.0526368)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpringArm3D/pole:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.87, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sweqy"]
 _data = {
 &"RESET": SubResource("Animation_hqtel"),
@@ -112,7 +112,7 @@ _data = {
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
-script = ExtResource("1_onrkg")
+script = ExtResource("1_6t5aa")
 mouse_sensitivity = 0.004
 
 [node name="Head" type="Marker3D" parent="."]
@@ -124,7 +124,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.663348, 0)
 shape = SubResource("CapsuleShape3D_onrkg")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-texture = ExtResource("1_4flbx")
+texture = ExtResource("2_vgqql")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.513927, 0, 1.54299)
@@ -132,7 +132,7 @@ shape = SubResource("SeparationRayShape3D_i3pqv")
 spring_length = 2.0
 
 [node name="pole" type="MeshInstance3D" parent="SpringArm3D"]
-transform = Transform3D(-0.000429511, -0.105579, -0.994411, -0.880167, -0.471973, 0.0504907, -0.474665, 0.875269, -0.0927248, 5.96046e-08, 0, -0.905665)
+transform = Transform3D(-0.000429154, -0.105579, -0.994411, -0.880167, -0.471972, 0.0504899, -0.474665, 0.875269, -0.0927241, 5.96046e-08, 0, -0.905665)
 rotation_edit_mode = 1
 visible = false
 mesh = SubResource("ArrayMesh_2hs0m")
@@ -142,7 +142,3 @@ skeleton = NodePath("")
 libraries = {
 &"": SubResource("AnimationLibrary_sweqy")
 }
-
-[node name="Cylinder_006" type="MeshInstance3D" parent="."]
-mesh = SubResource("ArrayMesh_2hs0m")
-skeleton = NodePath("")
