@@ -1,9 +1,98 @@
-[gd_scene load_steps=2 format=3 uid="uid://hja6ejfm1yob"]
+[gd_scene load_steps=9 format=3 uid="uid://hja6ejfm1yob"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xnr3r"]
+[ext_resource type="PackedScene" uid="uid://5h8oqj016kmf" path="res://Assets/Small Fish.glb" id="1_twvwo"]
 
-[node name="Fish" type="RigidBody3D"]
+[sub_resource type="Curve3D" id="Curve3D_twvwo"]
+closed = true
+_data = {
+"points": PackedVector3Array(-0.669221, 0, -1.52154, 0.669221, 0, 1.52154, -0.862911, 0, 0.297199, -1.11058, 0, -1.33578, 1.11058, 0, 1.33578, 1.0314, 0, 2.19336, -1.78369, 0, 0.71291, 1.78369, 0, -0.71291, 3.71199, 0, 5.87462, -1.64453, 0, 0.398148, 1.64453, 0, -0.398148, 3.07123, 0, 2.75513, -0.100408, 0, 2.0469, 0.100408, 0, -2.0469, 7.43776, 0, 1.39957, 0.624427, 0, 1.93721, -0.624427, 0, -1.93721, 4.30509, 0, 0.781314, 0.775658, 0, 1.28152, -0.775658, 0, -1.28152, 5.26833, 0, -2.05178, 1.45014, 0, 0.168621, -1.45014, 0, -0.168621, 2.08138, 0, -2.27099, 0.585955, 0, -0.731369, -0.585955, 0, 0.731369, -0.524127, 0, -4.96249, 0.11947, 0, -1.13585, -0.11947, 0, 1.13585, 0.108511, 0, -2.3553),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 10
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_xnr3r")
+[sub_resource type="Animation" id="Animation_twvwo"]
+resource_name = "Fish Bob"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 1, 0, 0.25, 0, 3, 1, 0, -0.25, 0)
+
+[sub_resource type="Animation" id="Animation_c4ibo"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c4ibo"]
+_data = {
+&"Fish Bob": SubResource("Animation_twvwo"),
+&"RESET": SubResource("Animation_c4ibo")
+}
+
+[sub_resource type="Animation" id="Animation_4fqy1"]
+resource_name = "Fish Path"
+length = 18.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.86667, 6.9, 11, 12.0667, 13.4333, 14.3333, 17.3, 18),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 0.366021),
+"update": 0,
+"values": [0.0, 0.1, 0.3, 0.45, 0.65, 0.8, 0.844403, 0.9, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_urn1o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jdl8t"]
+_data = {
+&"Fish Path": SubResource("Animation_4fqy1"),
+&"RESET": SubResource("Animation_urn1o")
+}
+
+[node name="Fish" type="Path3D"]
+curve = SubResource("Curve3D_twvwo")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="."]
+transform = Transform3D(0.915238, 0, 0.402551, 0, 1, 0, -0.402551, 0, 0.915238, -0.862911, 0, 0.297199)
+use_model_front = true
+
+[node name="Small Fish" parent="PathFollow3D" instance=ExtResource("1_twvwo")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow3D/Small Fish"]
+libraries = {
+&"": SubResource("AnimationLibrary_c4ibo")
+}
+autoplay = "Fish Bob"
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="PathFollow3D"]
+root_node = NodePath("../Small Fish")
+libraries = {
+&"": SubResource("AnimationLibrary_jdl8t")
+}
