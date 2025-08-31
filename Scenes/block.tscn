@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcdasbtq682js"]
+
+[ext_resource type="Script" path="res://Scripts/block.gd" id="1_1w5ow"]
+[ext_resource type="Texture2D" uid="uid://bdjdufye8ndb7" path="res://icon.svg" id="1_dx5r4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jfyx0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lxwep"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0vfic"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4c87"]
+resource_local_to_scene = true
+albedo_texture = ExtResource("1_dx5r4")
+emission_enabled = true
+
+[node name="Block" type="StaticBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_jfyx0")
+script = ExtResource("1_1w5ow")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_lxwep")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_0vfic")
+surface_material_override/0 = SubResource("StandardMaterial3D_j4c87")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct13yojq35okq"]
+
+[ext_resource type="Script" path="res://Scripts/space.gd" id="1_e7mvc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_og2b5"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_3beeg"]
+sky_material = SubResource("ProceduralSkyMaterial_og2b5")
+
+[sub_resource type="Environment" id="Environment_hg6w5"]
+background_mode = 2
+sky = SubResource("Sky_3beeg")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Space" type="Node3D"]
+script = ExtResource("1_e7mvc")
+size = 30
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hg6w5")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.671048, -0.447721, 0.590966, 0, 0.797079, 0.603875, -0.741414, 0.405229, -0.534879, 12.4644, 15.8661, -11.8527)
