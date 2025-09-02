@@ -14,4 +14,4 @@ class_name Bobber
 
 
 func _on_body_entered(body: Node) -> void:
-	print(body)
+	print(body.get_name())
