@@ -121,6 +121,10 @@ func casting_process(delta:float):
 			bobber.queue_free()
 		bobber = BOBBER.instantiate()
 		bobber.linear_velocity = cast_vector * cast_strength
+		# enable collision signals
+		bobber.set_contact_monitor(true)
+		bobber.set_max_contacts_reported(1)
+		#print(bobber.max_contacts_reported)
 		get_parent().add_child(bobber)
 		bobber.global_position = end_pos
 		
