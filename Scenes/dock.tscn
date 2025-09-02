@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://wk15s374ot2w"]
+
+[ext_resource type="PackedScene" uid="uid://bcqm0wqwrge7k" path="res://Assets/dock_jank.glb" id="1_pdbyd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6a54b"]
+size = Vector3(8.75, 0.61, 2)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pdbyd"]
+height = 3.262
+radius = 0.26123
+
+[node name="dock" type="StaticBody3D"]
+
+[node name="dock_jank" parent="." instance=ExtResource("1_pdbyd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="boards" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.096, 2.486, 0)
+shape = SubResource("BoxShape3D_6a54b")
+
+[node name="strut" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.64591, 1.63678, 0.903257)
+shape = SubResource("CylinderShape3D_pdbyd")
+
+[node name="strut2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6416, 1.64206, -0.902904)
+shape = SubResource("CylinderShape3D_pdbyd")
