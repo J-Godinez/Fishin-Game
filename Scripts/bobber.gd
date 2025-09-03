@@ -15,3 +15,5 @@ class_name Bobber
 
 func _on_body_entered(body: Node) -> void:
 	print(body.get_name())
+	freeze_mode = Bobber.FREEZE_MODE_STATIC
+	freeze = true

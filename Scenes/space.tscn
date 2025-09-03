@@ -136,6 +136,16 @@ max_sprint = 3.0
 [node name="LakeSurface" parent="." instance=ExtResource("4_wnfdr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, -2.42973, 7.65936)
 
+[node name="LakeCollisionArea" type="StaticBody3D" parent="LakeSurface"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.583439, 0.548874, -0.271208)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="LakeSurface/LakeCollisionArea"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.66718, -0.96352, -0.0976467)
+polygon = PackedVector2Array(-3.47697, -40.4598, -10.4179, -39.3639, -20.1594, -33.0318, -21.1336, -22.3161, -29.7793, -16.5929, -30.7534, -5.14656, -34.65, 2.40317, -33.9194, 12.2665, -31.3623, 22.8605, -26.3697, 26.5136, -14.558, 29.9231, -5.30352, 31.0191, -2.98989, 26.1483, 2.73328, 31.3844, 10.8919, 26.8789, 20.5117, 22.9823, 26.6002, 14.2148, 30.2533, 2.2814, 22.0947, -6.24249, 24.5301, -14.7664, 19.1909, -22.9019, 14.6446, -28.0487, 11.959, -30.3683, 4.002, -36.6092)
+debug_color = Color(0.996078, 0, 0.223529, 1)
+
 [node name="Lake_Swim" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Lake_Swim"]
@@ -144,7 +154,6 @@ shape = SubResource("WorldBoundaryShape3D_wnfdr")
 
 [node name="Plane2" type="MeshInstance3D" parent="."]
 transform = Transform3D(114, 0, 0, 0, 114, 0, 0, 0, 114, 0, 0, 0)
-visible = false
 mesh = SubResource("ArrayMesh_1fjq1")
 skeleton = NodePath("")
 

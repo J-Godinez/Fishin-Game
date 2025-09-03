@@ -49,6 +49,7 @@ shadow_mesh = SubResource("ArrayMesh_q77fy")
 radius = 0.1
 
 [node name="RigidBody3D" type="RigidBody3D"]
+collision_mask = 3
 script = ExtResource("2_k5kt6")
 
 [node name="Bobber" type="MeshInstance3D" parent="."]
