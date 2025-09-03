@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://ct13yojq35okq"]
+[gd_scene load_steps=20 format=4 uid="uid://ct13yojq35okq"]
 
 [ext_resource type="Script" uid="uid://baicr53a31gh5" path="res://Scripts/space.gd" id="1_e7mvc"]
 [ext_resource type="PackedScene" uid="uid://d1d4u455e56w2" path="res://Scenes/ground.tscn" id="2_2fo43"]
 [ext_resource type="PackedScene" uid="uid://lrwh0vqdje4g" path="res://Scenes/player.tscn" id="3_wnfdr"]
 [ext_resource type="PackedScene" uid="uid://7qrxt0iwjoum" path="res://Scenes/lake_surface.tscn" id="4_wnfdr"]
+[ext_resource type="Script" uid="uid://daqbvu7huiio6" path="res://Scripts/lake_collision_area.gd" id="5_1fjq1"]
 [ext_resource type="Texture2D" uid="uid://b4t36dq4oyddl" path="res://Assets/ground_fish_texture.png" id="5_va77k"]
 [ext_resource type="Texture2D" uid="uid://b3roycd5goo5d" path="res://Assets/cactus_0_Untitled.png" id="6_uqc4w"]
 [ext_resource type="PackedScene" uid="uid://wk15s374ot2w" path="res://Scenes/dock.tscn" id="7_uqc4w"]
@@ -136,14 +137,15 @@ max_sprint = 3.0
 [node name="LakeSurface" parent="." instance=ExtResource("4_wnfdr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, -2.42973, 7.65936)
 
-[node name="LakeCollisionArea" type="StaticBody3D" parent="LakeSurface"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.583439, 0.548874, -0.271208)
+[node name="LakeCollisionArea" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.4166, -1.88086, 7.38815)
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("5_1fjq1")
 
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="LakeSurface/LakeCollisionArea"]
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="LakeCollisionArea"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.66718, -0.96352, -0.0976467)
-polygon = PackedVector2Array(-3.47697, -40.4598, -10.4179, -39.3639, -20.1594, -33.0318, -21.1336, -22.3161, -29.7793, -16.5929, -30.7534, -5.14656, -34.65, 2.40317, -33.9194, 12.2665, -31.3623, 22.8605, -26.3697, 26.5136, -14.558, 29.9231, -5.30352, 31.0191, -2.98989, 26.1483, 2.73328, 31.3844, 10.8919, 26.8789, 20.5117, 22.9823, 26.6002, 14.2148, 30.2533, 2.2814, 22.0947, -6.24249, 24.5301, -14.7664, 19.1909, -22.9019, 14.6446, -28.0487, 11.959, -30.3683, 4.002, -36.6092)
+polygon = PackedVector2Array(-3.42997, -39.6663, -11.0557, -38.5436, -20.4027, -31.9854, -21.2225, -23.4614, -30.7964, -15.6088, -31.4111, -5.38381, -35.4611, 2.08454, -35.7698, 8.94003, -31.836, 23.9008, -26.6968, 27.3799, -14.0509, 30.1159, -6.46521, 33.3852, -3.32355, 26.9462, 2.56701, 31.0851, 10.0399, 27.5392, 18.2869, 24.5295, 25.5317, 15.7188, 29.1568, 2.54755, 21.1034, -3.26257, 29.1007, -15.214, 21.6575, -18.0758, 19.3442, -18.3872, 18.9011, -18.9566, 12.1446, -14.2078, 11.025, -15.9838, 17.4726, -20.6554, 11.5771, -29.4288, 3.04469, -33.4826)
 debug_color = Color(0.996078, 0, 0.223529, 1)
 
 [node name="Lake_Swim" type="StaticBody3D" parent="."]
