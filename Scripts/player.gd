@@ -27,8 +27,6 @@ var holstered:bool = true
 var sprint = 1.0
 @export var mouse_sensitivity:float
 
-signal good_cast
-
 enum State{
 	NULL, WALKING, CASTING, FISHING, INVENTORY
 }
@@ -55,6 +53,8 @@ func _physics_process(delta: float) -> void:
 			walking_process(delta)
 		State.CASTING:
 			casting_process(delta)
+		State.FISHING:
+			fishing_process(delta)
 
 func walking_process(delta:float):
 	if Input.is_action_just_pressed("click"):
@@ -154,6 +154,11 @@ func casting_process(delta:float):
 	
 	mouse_look()
 
+func fishing_process(delta:float):
+	if Input.is_action_just_pressed("click"):
+		if bobber:
+			print("Bobber is real")
+
 func mouse_look():
 	rotation.y -= mouse_move.x
 	rotation.x -= mouse_move.y
@@ -174,4 +179,4 @@ func create_line_sprite(from:Vector3, to:Vector3) -> Sprite3D:
 	return line
 
 func _on_good_cast():
-	pass
+	state = State.FISHING

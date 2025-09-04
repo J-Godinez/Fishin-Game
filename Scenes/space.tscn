@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://ct13yojq35okq"]
+[gd_scene load_steps=20 format=4 uid="uid://ct13yojq35okq"]
 
 [ext_resource type="Script" uid="uid://baicr53a31gh5" path="res://Scripts/space.gd" id="1_e7mvc"]
 [ext_resource type="PackedScene" uid="uid://d1d4u455e56w2" path="res://Scenes/ground.tscn" id="2_2fo43"]
 [ext_resource type="PackedScene" uid="uid://lrwh0vqdje4g" path="res://Scenes/player.tscn" id="3_wnfdr"]
 [ext_resource type="PackedScene" uid="uid://7qrxt0iwjoum" path="res://Scenes/lake_surface.tscn" id="4_wnfdr"]
+[ext_resource type="Script" uid="uid://cakawpbpbebv1" path="res://Scripts/lake_collision_area.gd" id="5_1fjq1"]
 [ext_resource type="Texture2D" uid="uid://b4t36dq4oyddl" path="res://Assets/ground_fish_texture.png" id="5_va77k"]
 [ext_resource type="Texture2D" uid="uid://b3roycd5goo5d" path="res://Assets/cactus_0_Untitled.png" id="6_uqc4w"]
 [ext_resource type="PackedScene" uid="uid://wk15s374ot2w" path="res://Scenes/dock.tscn" id="7_uqc4w"]
@@ -129,7 +130,7 @@ environment = SubResource("Environment_hg6w5")
 [node name="ground" parent="." instance=ExtResource("2_2fo43")]
 
 [node name="Player" parent="." instance=ExtResource("3_wnfdr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0404, 3.15089, -0.0431042)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0404, 3.15089, -0.0431042)
 SPEED = 5.0
 max_sprint = 3.0
 
@@ -140,6 +141,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, -2.42973, 7.65936)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.4166, -1.88086, 7.38815)
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("5_1fjq1")
 
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="LakeCollisionArea"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.66718, -0.96352, -0.0976467)
