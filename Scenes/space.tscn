@@ -129,7 +129,7 @@ environment = SubResource("Environment_hg6w5")
 [node name="ground" parent="." instance=ExtResource("2_2fo43")]
 
 [node name="Player" parent="." instance=ExtResource("3_wnfdr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0701771, 27.6503, -0.0431042)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0404, 3.15089, -0.0431042)
 SPEED = 5.0
 max_sprint = 3.0
 

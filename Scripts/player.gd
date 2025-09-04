@@ -15,6 +15,7 @@ var casting_tip_positions:Dictionary[float,Vector3] = {}
 @export var cast_strength:float = 10
 var casting_time_bucket:float
 var bobber:Bobber
+var bobber_top:Marker3D
 var line_to_bobber:Sprite3D
 
 @export_category("🏃‍♀️ Movement 🏃‍♀️")
@@ -25,6 +26,8 @@ var holstered:bool = true
 @export var max_sprint = 3.0
 var sprint = 1.0
 @export var mouse_sensitivity:float
+
+signal good_cast
 
 enum State{
 	NULL, WALKING, CASTING, FISHING, INVENTORY
@@ -97,11 +100,11 @@ func walking_process(delta:float):
 	if bobber:
 		#print(tip.global_position, bobber.global_position)
 		if !line_to_bobber:
-			line_to_bobber = create_line_sprite(bobber.global_position, tip.global_position)
+			line_to_bobber = create_line_sprite(bobber_top.global_position, tip.global_position)
 			tip.add_child(line_to_bobber)
 		line_to_bobber.global_position = tip.global_position
-		line_to_bobber.look_at(bobber.global_position)
-		line_to_bobber.scale.z = (bobber.global_position-tip.global_position).length() * 100
+		line_to_bobber.look_at(bobber_top.global_position)
+		line_to_bobber.scale.z = (bobber_top.global_position-tip.global_position).length() * 100
 	if !bobber and line_to_bobber:
 		line_to_bobber.queue_free()
 
@@ -131,6 +134,10 @@ func casting_process(delta:float):
 		if bobber:
 			bobber.queue_free()
 		bobber = BOBBER.instantiate()
+		for child in bobber.get_children():
+			if child is Marker3D:
+				# print(child)
+				bobber_top = child
 		bobber.linear_velocity = cast_vector * cast_strength
 		# enable collision signals
 		bobber.set_contact_monitor(true)
@@ -165,3 +172,6 @@ func create_line_sprite(from:Vector3, to:Vector3) -> Sprite3D:
 	line.position = from
 	line.look_at_from_position(from,to)
 	return line
+
+func _on_good_cast():
+	pass

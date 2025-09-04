@@ -55,6 +55,9 @@ amp = 0.07
 offset = 0.18
 rot_amp = 0.5
 
+[node name="Top" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00336901, 0.129728, 4.47035e-08)
+
 [node name="Bobber" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_c26io")
 skeleton = NodePath("")
