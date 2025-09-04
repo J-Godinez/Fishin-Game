@@ -15,7 +15,7 @@ varying vec2 sample_choord;
 
 void vertex() {
 
-	VERTEX.y += sin(TIME * wobble_speed + (VERTEX.x + VERTEX.z) * 0.3) * 0.2;
+	//VERTEX.y += sin(TIME * wobble_speed + (VERTEX.x + VERTEX.z) * 0.3) * 0.2;
 
 	sample_choord = VERTEX.xz;
 }

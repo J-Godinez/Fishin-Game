@@ -93,6 +93,17 @@ func walking_process(delta:float):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	
+	if bobber:
+		#print(tip.global_position, bobber.global_position)
+		if !line_to_bobber:
+			line_to_bobber = create_line_sprite(bobber.global_position, tip.global_position)
+			tip.add_child(line_to_bobber)
+		line_to_bobber.global_position = tip.global_position
+		line_to_bobber.look_at(bobber.global_position)
+		line_to_bobber.scale.z = (bobber.global_position-tip.global_position).length() * 100
+	if !bobber and line_to_bobber:
+		line_to_bobber.queue_free()
 
 func casting_process(delta:float):
 	if holstered:
@@ -128,12 +139,11 @@ func casting_process(delta:float):
 		get_parent().add_child(bobber)
 		bobber.global_position = end_pos
 		
-		line_to_bobber = create_line_sprite(tip.position, bobber.global_position)
 		# Also give the bobber starting impulse
 		state = State.WALKING
 		casting_time_bucket = 0
 		casting_tip_positions.clear()
-		
+
 	
 	mouse_look()
 
@@ -151,7 +161,7 @@ func create_base_fishing_line():
 
 func create_line_sprite(from:Vector3, to:Vector3) -> Sprite3D:
 	var line:Sprite3D =  FISHING_LINE.instantiate()
-	line.scale.z = (to-from).length() * 100
+	line.scale.z = (from-to).length() * 100
 	line.position = from
 	line.look_at_from_position(from,to)
 	return line

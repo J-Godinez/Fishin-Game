@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a4dt0"]
 render_priority = 0
 shader = ExtResource("1_o5h2o")
-shader_parameter/slide_speed = 1.905
+shader_parameter/slide_speed = 0.7
 shader_parameter/wobble_speed = 0.17
 shader_parameter/wobble_intensity = 0.4
 shader_parameter/texture_scale = 0.07

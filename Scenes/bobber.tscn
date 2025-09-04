@@ -51,6 +51,9 @@ radius = 0.1
 [node name="RigidBody3D" type="RigidBody3D"]
 collision_mask = 3
 script = ExtResource("2_k5kt6")
+amp = 0.07
+offset = 0.18
+rot_amp = 0.5
 
 [node name="Bobber" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_c26io")
