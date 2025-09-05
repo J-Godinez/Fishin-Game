@@ -122,7 +122,9 @@ buffer = PackedFloat32Array(0.988122, -0.0431314, 0.154128, 77.1906, 0.045593, 0
 
 [node name="Space" type="Node3D"]
 script = ExtResource("1_e7mvc")
-size = 30
+spawn_area_scalar = 0.75
+x_offset = 40.0
+z_offset = 7.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hg6w5")
@@ -169,3 +171,7 @@ multimesh = SubResource("MultiMesh_va77k")
 
 [node name="dock" parent="." instance=ExtResource("7_uqc4w")]
 transform = Transform3D(-0.808914, 0, -0.587927, 0, 1, 0, 0.587927, 0, -0.808914, -21.4584, -4.29897, -12.9798)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -5,10 +5,10 @@
 [sub_resource type="Curve3D" id="Curve3D_twvwo"]
 closed = true
 _data = {
-"points": PackedVector3Array(-0.669221, 0, -1.52154, 0.669221, 0, 1.52154, -0.862911, 0, 0.297199, -1.11058, 0, -1.33578, 1.11058, 0, 1.33578, 1.0314, 0, 2.19336, -1.78369, 0, 0.71291, 1.78369, 0, -0.71291, 3.71199, 0, 5.87462, -1.64453, 0, 0.398148, 1.64453, 0, -0.398148, 3.07123, 0, 2.75513, -0.100408, 0, 2.0469, 0.100408, 0, -2.0469, 7.43776, 0, 1.39957, 0.624427, 0, 1.93721, -0.624427, 0, -1.93721, 4.30509, 0, 0.781314, 0.775658, 0, 1.28152, -0.775658, 0, -1.28152, 5.26833, 0, -2.05178, 1.45014, 0, 0.168621, -1.45014, 0, -0.168621, 2.08138, 0, -2.27099, 0.585955, 0, -0.731369, -0.585955, 0, 0.731369, -0.524127, 0, -4.96249, 0.11947, 0, -1.13585, -0.11947, 0, 1.13585, 0.108511, 0, -2.3553),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(-0.669221, 0, -1.52154, 0.669221, 0, 1.52154, -3.82613, 0, 0.117813, -1.11058, 0, -1.33578, 1.11058, 0, 1.33578, -0.135065, 0, -0.0468382, -1.76998, 0, -0.273835, 1.76998, 0, 0.273835, -1.64776, 0, 4.35191, -1.64453, 0, 0.398148, 1.64453, 0, -0.398148, 0.376651, 0, 2.30703, -0.692796, 0, 0.760385, 0.692796, 0, -0.760385, 2.86387, 0, 3.17425, -0.848901, 0, 0.873143, 0.848901, 0, -0.873143, 1.05181, 0, 0.7017, -1.09834, 0, -0.456231, 1.09834, 0, 0.456231, 2.69489, 0, 2.73492, 1.34241, 0, 0.734706, -1.34241, 0, -0.734706, 2.99905, 0, -2.19914, 0.790402, 0, 0.0142171, -0.790402, 0, -0.0142171, 1.09585, 0, -0.837494, 1.14125, 0, 0.127017, -1.14125, 0, -0.127017, -1.06169, 0, -3.34981, -1.1221, 0, -0.70489, 1.1221, 0, 0.70489, -1.36886, 0, 1.88162, -0.940733, 0, 0.716749, 0.940733, 0, -0.716749, 3.40459, 0, 1.28174, 0.940731, 0, 0.940732, -0.940731, 0, -0.940732, 2.74558, 0, -1.60773),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 10
+point_count = 13
 
 [sub_resource type="Animation" id="Animation_twvwo"]
 resource_name = "Fish Bob"
@@ -40,7 +40,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_4fqy1"]
 resource_name = "Fish Path"
-length = 18.0
+length = 40.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -49,10 +49,10 @@ tracks/0/path = NodePath("..:progress_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 4.86667, 6.9, 11, 12.0667, 13.4333, 14.3333, 17.3, 18),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 0.366021),
+"times": PackedFloat32Array(0, 6, 6.86667, 8, 12, 13, 13.5, 15, 20, 22, 26, 27, 34, 40),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.366021),
 "update": 0,
-"values": [0.0, 0.1, 0.3, 0.45, 0.65, 0.8, 0.844403, 0.9, 1.0]
+"values": [0.0, 0.1, 0.12, 0.181472, 0.25, 0.3, 0.305, 0.31, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0]
 }
 
 [sub_resource type="Animation" id="Animation_urn1o"]
@@ -90,7 +90,8 @@ radius = 9.143
 curve = SubResource("Curve3D_twvwo")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="."]
-transform = Transform3D(0.915238, 0, 0.402551, 0, 1, 0, -0.402551, 0, 0.915238, -0.862911, 0, 0.297199)
+transform = Transform3D(-0.131374, 0, 0.991181, 0, 1, 0, -0.991181, 0, -0.131374, 0.898821, 0, 2.14205)
+progress = 42.293
 use_model_front = true
 
 [node name="Small Fish" parent="PathFollow3D" instance=ExtResource("1_twvwo")]
@@ -108,12 +109,14 @@ libraries = {
 }
 
 [node name="Bobber Detection Area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bobber Detection Area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.23117, 1.50343, 0.137761)
 shape = SubResource("CylinderShape3D_twvwo")
 
 [node name="Player Detection Area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player Detection Area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.231, 1.503, 0.138)
