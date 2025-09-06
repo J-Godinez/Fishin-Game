@@ -27,8 +27,12 @@ var holstered:bool = true
 var sprint = 1.0
 @export var mouse_sensitivity:float
 
+@export_category("🐟 Fishing 🐟")
+@export_custom(PROPERTY_HINT_NONE, "suffix:m/s") var reel_speed:float = 1.0
+@export_custom(PROPERTY_HINT_TYPE_STRING, "suffix:m") var reel_in_distance:float = 5.0
+
 enum State{
-	NULL, WALKING, CASTING, FISHING, INVENTORY
+	NULL, WALKING, CASTING, WAITING_FOR_BOBBER_TO_LAND, FISHING, INVENTORY
 }
 
 var state:State = State.WALKING
@@ -53,6 +57,8 @@ func _physics_process(delta: float) -> void:
 			walking_process(delta)
 		State.CASTING:
 			casting_process(delta)
+		State.WAITING_FOR_BOBBER_TO_LAND:
+			waiting_for_bobber_to_land_process(delta)
 		State.FISHING:
 			fishing_process(delta)
 
@@ -97,17 +103,9 @@ func walking_process(delta:float):
 
 	move_and_slide()
 	
-	if bobber:
-		#print(tip.global_position, bobber.global_position)
-		if !line_to_bobber:
-			line_to_bobber = create_line_sprite(bobber_top.global_position, tip.global_position)
-			tip.add_child(line_to_bobber)
-		line_to_bobber.global_position = tip.global_position
-		line_to_bobber.look_at(bobber_top.global_position)
-		line_to_bobber.scale.z = (bobber_top.global_position-tip.global_position).length() * 100
+	draw_line_to_bobber()
 	if !bobber and line_to_bobber:
 		line_to_bobber.queue_free()
-
 func casting_process(delta:float):
 	if holstered:
 		state = State.WALKING
@@ -134,20 +132,18 @@ func casting_process(delta:float):
 		if bobber:
 			bobber.queue_free()
 		bobber = BOBBER.instantiate()
-		for child in bobber.get_children():
-			if child is Marker3D:
-				# print(child)
-				bobber_top = child
 		bobber.linear_velocity = cast_vector * cast_strength
 		# enable collision signals
 		bobber.set_contact_monitor(true)
 		bobber.set_max_contacts_reported(1)
 		#print(bobber.max_contacts_reported)
 		get_parent().add_child(bobber)
+		bobber_top = bobber.top
 		bobber.global_position = end_pos
+		bobber.bobber_landed.connect(handle_bobber_landed, CONNECT_ONE_SHOT)
 		
 		# Also give the bobber starting impulse
-		state = State.WALKING
+		state = State.WAITING_FOR_BOBBER_TO_LAND
 		casting_time_bucket = 0
 		casting_tip_positions.clear()
 
@@ -155,9 +151,48 @@ func casting_process(delta:float):
 	mouse_look()
 
 func fishing_process(delta:float):
-	if Input.is_action_just_pressed("click"):
+	draw_line_to_bobber()
+	
+	if Input.is_action_pressed("click"):
 		if bobber:
-			print("Bobber is real")
+			var target_pos:Vector3 = Vector3(global_position.x,bobber.global_position.y,global_position.z)
+			bobber.global_position = bobber.global_position.move_toward(target_pos, reel_speed * delta)
+			if bobber.global_position.distance_to(target_pos) < reel_in_distance:
+				# didn't catch fish so return bobber and set to walking
+				bobber.kill()
+				state = State.WALKING
+		else:
+			state = State.WALKING
+	if Input.is_action_just_pressed("right_click"):
+		if bobber:
+			bobber.kill()
+		state = State.WALKING
+	mouse_look()
+
+func waiting_for_bobber_to_land_process(delta:float):
+	if Input.is_action_just_pressed("right_click"):
+		if bobber:
+			bobber.kill()
+		state = State.WALKING
+	draw_line_to_bobber()
+	mouse_look()
+
+func draw_line_to_bobber():
+	if bobber:
+		#print(tip.global_position, bobber.global_position)
+		if !line_to_bobber:
+			line_to_bobber = create_line_sprite(bobber_top.global_position, tip.global_position)
+			tip.add_child(line_to_bobber)
+		line_to_bobber.global_position = tip.global_position
+		line_to_bobber.look_at(bobber_top.global_position)
+		line_to_bobber.scale.z = (bobber_top.global_position-tip.global_position).length() * 100
+
+func handle_bobber_landed(in_water:bool):
+	if in_water:
+		state = State.FISHING
+	else:
+		state = State.WALKING
+	pass
 
 func mouse_look():
 	rotation.y -= mouse_move.x

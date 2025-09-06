@@ -122,6 +122,7 @@ cast_strength = 4.0
 SPEED = 2.5
 max_sprint = 2.5
 mouse_sensitivity = 0.004
+reel_speed = 4.0
 
 [node name="Head" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.663348, 0)
