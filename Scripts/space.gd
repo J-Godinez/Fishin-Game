@@ -20,7 +20,7 @@ func _ready() -> void:
 		var cactus_transform = cactus.multimesh.get_instance_transform(i)
 		var static_body = CACTUS_ZONE.instantiate()
 		static_body.transform = cactus_transform
-		add_child(static_body)
+		cactus.add_child(static_body)
 		timer.start()
 	get_lake_area()
 
