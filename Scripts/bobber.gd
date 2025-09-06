@@ -24,8 +24,8 @@ signal good_cast
 
 
 func _on_body_entered(body: Node) -> void:
-	#print(body.has_method("valid_fishing_location"))
-	if !body.has_method("valid_fishing_location"):
+	if body is not FishingSpot:
+		emit_bobber_landed(false)
 		queue_free()
 		return
 	#print("Linear Velocity", linear_velocity, "Angular Velocity", angular_velocity)
