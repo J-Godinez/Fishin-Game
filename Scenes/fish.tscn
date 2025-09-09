@@ -90,7 +90,7 @@ radius = 9.143
 curve = SubResource("Curve3D_twvwo")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="."]
-transform = Transform3D(-0.131374, 0, 0.991181, 0, 1, 0, -0.991181, 0, -0.131374, 0.898821, 0, 2.14205)
+transform = Transform3D(-0.131363, 0, 0.991183, 0, 1, 0, -0.991183, 0, -0.131363, 0.898753, 0, 2.14206)
 progress = 42.293
 use_model_front = true
 

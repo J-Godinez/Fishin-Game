@@ -9,6 +9,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	#if mesh_material.emission_enabled and Input.is_action_just_pressed("q"):
+		#print(position)
 	pass
 
 func _on_mouse_entered() -> void:

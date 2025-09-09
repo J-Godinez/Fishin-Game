@@ -3,11 +3,12 @@ extends Node3D
 @export var fish_limit:int = 5
 @export var spawn_delay:float = 10.0
 @export var spawn_area_scalar:float = 0.5
-@export var x_offset:float = 5.0
-@export var z_offset:float = 5.0
+@export var spawn_range:float = 5.0
 @onready var cactus: MultiMeshInstance3D = $Cactus
 @onready var timer: Timer = $Timer
 @onready var lake_poly: CollisionPolygon3D = $LakeCollisionArea/CollisionPolygon3D
+@onready var lake_center: Marker3D = $Lake_Center
+
 const BLOCK = preload("res://Scenes/block.tscn")
 const CACTUS_ZONE = preload("res://Decoration/cactus_zone.tscn")
 const FISH_ZONE = preload("res://Scenes/fish.tscn")
@@ -63,14 +64,16 @@ func spawn_fish():
 
 
 func get_lake_area():
-	var lake_area: PackedVector2Array
-	var v: Vector2
-	#skip 22-25, those are for the dock. the array starts at 0 so this is already accounted for in the loop.
-	#if we can't remove those indices simultaneously we should hypothetically be able to remove "22" 4 times, since the values would shift over
-	for i in lake_poly.polygon.size():
-		v = lake_poly.polygon.get(i)
-		v.x = (v.x * spawn_area_scalar) - x_offset
-		v.y = (v.y * spawn_area_scalar) + z_offset
-		lake_area.append(v)
-		add_block(v.x, 3, v.y)
-	#print(lake_area)
+	var lake_x = lake_center.position.x
+	var lake_y = lake_center.position.y
+	var lake_z = lake_center.position.z
+	for i in spawn_range:
+		add_block(lake_x + i, lake_y, lake_z + spawn_range - i - 1)
+		add_block(lake_x - i, lake_y, lake_z + spawn_range - i - 1)
+		add_block(lake_x + i, lake_y, lake_z - spawn_range + i + 1)
+		add_block(lake_x - i, lake_y, lake_z - spawn_range + i + 1)
+		add_block(lake_x + spawn_range - (2 * i), lake_y, lake_z + spawn_range)
+		add_block(lake_x + spawn_range, lake_y, lake_z + spawn_range - (2 * i))
+		
+	for j in 5:
+		add_block(lake_x, lake_y + j, lake_z)
