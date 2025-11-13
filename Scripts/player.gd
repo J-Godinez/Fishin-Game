@@ -2,12 +2,14 @@ extends CharacterBody3D
 
 const BOBBER = preload("res://Scenes/bobber.tscn")
 const FISHING_LINE = preload("res://Decoration/fishing_line.tscn")
+const SAGGY_ROPE = preload("uid://gfecql7mfaf5")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var pole: MeshInstance3D = $SpringArm3D/pole
 @onready var spool: Marker3D = $SpringArm3D/pole/Spool
 @onready var first_ring: Marker3D = $SpringArm3D/pole/FirstRing
 @onready var tip: Marker3D = $SpringArm3D/pole/Tip
+@onready var saggy_rope: SaggyLine = $SpringArm3D/pole/Tip/SaggyRope
 
 @export_category("🎣 Casting 🎣")
 var casting_tip_positions:Dictionary[float,Vector3] = {}
@@ -17,6 +19,7 @@ var casting_time_bucket:float
 var bobber:Bobber
 var bobber_top:Marker3D
 var line_to_bobber:Sprite3D
+var tension:float = 0
 
 @export_category("🏃‍♀️ Movement 🏃‍♀️")
 @export var SPEED = 5.0
@@ -103,15 +106,19 @@ func walking_process(delta:float):
 
 	move_and_slide()
 	
-	draw_line_to_bobber()
+	draw_saggy_line_to_bobber()
 	if !bobber and line_to_bobber:
 		line_to_bobber.queue_free()
+	if !bobber and saggy_rope.rope_segment_holder.get_child_count() > 0:
+		saggy_rope.clear()
+
 func casting_process(delta:float):
 	if holstered:
 		state = State.WALKING
 		return
 	if Input.is_action_just_released("click") and casting_time_bucket < casting_impulse_time:
 		state = State.WALKING
+		tension = 1
 	
 	casting_time_bucket += delta
 	casting_tip_positions.set(casting_time_bucket, tip.global_position)
@@ -146,15 +153,17 @@ func casting_process(delta:float):
 		state = State.WAITING_FOR_BOBBER_TO_LAND
 		casting_time_bucket = 0
 		casting_tip_positions.clear()
-
 	
 	mouse_look()
 
 func fishing_process(delta:float):
-	draw_line_to_bobber()
+	draw_saggy_line_to_bobber()
 	
 	if Input.is_action_pressed("click"):
-		if bobber:
+		#move tension
+		if tension < 0.8:
+			tension = move_toward(tension, 0.8, delta)
+		elif bobber:
 			var target_pos:Vector3 = Vector3(global_position.x,bobber.global_position.y,global_position.z)
 			bobber.global_position = bobber.global_position.move_toward(target_pos, reel_speed * delta)
 			if bobber.global_position.distance_to(target_pos) < reel_in_distance:
@@ -163,19 +172,27 @@ func fishing_process(delta:float):
 				state = State.WALKING
 		else:
 			state = State.WALKING
+	else:
+		tension = move_toward(tension, 0, delta)
 	if Input.is_action_just_pressed("right_click"):
 		if bobber:
 			bobber.kill()
 		state = State.WALKING
 	mouse_look()
 
-func waiting_for_bobber_to_land_process(delta:float):
+func waiting_for_bobber_to_land_process(_delta:float):
 	if Input.is_action_just_pressed("right_click"):
 		if bobber:
 			bobber.kill()
 		state = State.WALKING
-	draw_line_to_bobber()
+	draw_saggy_line_to_bobber()
 	mouse_look()
+
+func draw_saggy_line_to_bobber():
+	if bobber:
+		saggy_rope.end_node = bobber
+		saggy_rope.tension = tension
+		saggy_rope.calc()
 
 func draw_line_to_bobber():
 	if bobber:

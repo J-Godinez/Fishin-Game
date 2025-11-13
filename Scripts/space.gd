@@ -37,6 +37,7 @@ func add_block(x,y,z):
 	block.position.y = y
 	block.position.z = z
 	add_child(block)
+	get_tree().reload_current_scene()
 	
 #func draw_blocks(s):
 	#var x = -(s/2.0)
@@ -67,13 +68,13 @@ func get_lake_area():
 	var lake_x = lake_center.position.x
 	var lake_y = lake_center.position.y
 	var lake_z = lake_center.position.z
-	for i in spawn_range:
-		add_block(lake_x + i, lake_y, lake_z + spawn_range - i - 1)
-		add_block(lake_x - i, lake_y, lake_z + spawn_range - i - 1)
-		add_block(lake_x + i, lake_y, lake_z - spawn_range + i + 1)
-		add_block(lake_x - i, lake_y, lake_z - spawn_range + i + 1)
-		add_block(lake_x + spawn_range - (2 * i), lake_y, lake_z + spawn_range)
-		add_block(lake_x + spawn_range, lake_y, lake_z + spawn_range - (2 * i))
-		
-	for j in 5:
-		add_block(lake_x, lake_y + j, lake_z)
+	#for i in spawn_range:
+		#add_block(lake_x + i, lake_y, lake_z + spawn_range - i - 1)
+		#add_block(lake_x - i, lake_y, lake_z + spawn_range - i - 1)
+		#add_block(lake_x + i, lake_y, lake_z - spawn_range + i + 1)
+		#add_block(lake_x - i, lake_y, lake_z - spawn_range + i + 1)
+		#add_block(lake_x + spawn_range - (2 * i), lake_y, lake_z + spawn_range)
+		#add_block(lake_x + spawn_range, lake_y, lake_z + spawn_range - (2 * i))
+		#
+	#for j in 5:
+		#add_block(lake_x, lake_y + j, lake_z)

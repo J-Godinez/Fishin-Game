@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=4 uid="uid://lrwh0vqdje4g"]
+[gd_scene load_steps=15 format=4 uid="uid://lrwh0vqdje4g"]
 
 [ext_resource type="Script" uid="uid://tlmurje1cshq" path="res://Scripts/player.gd" id="1_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://bdjdufye8ndb7" path="res://icon.svg" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://dnlebixg1884d" path="res://Assets/fishing_pole_fish_texture.png" id="3_fkybt"]
+[ext_resource type="PackedScene" uid="uid://gfecql7mfaf5" path="res://saggy_rope.tscn" id="4_fkybt"]
 [ext_resource type="Texture2D" uid="uid://badkm6hqv8mc0" path="res://Assets/fish_texture.png" id="4_vgqql"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
@@ -142,7 +143,7 @@ shape = SubResource("SeparationRayShape3D_i3pqv")
 spring_length = 2.0
 
 [node name="pole" type="MeshInstance3D" parent="SpringArm3D"]
-transform = Transform3D(-0.000429154, -0.105578, -0.994411, -0.880167, -0.471972, 0.0504899, -0.474665, 0.875269, -0.0927241, 5.96046e-08, 0, -0.905665)
+transform = Transform3D(-0.0004291536, -0.10557848, -0.994411, -0.8801669, -0.4719721, 0.050489902, -0.47466502, 0.8752689, -0.092724085, 5.96046e-08, 0, -0.905665)
 rotation_edit_mode = 1
 visible = false
 mesh = SubResource("ArrayMesh_2hs0m")
@@ -156,6 +157,10 @@ transform = Transform3D(1, 2.98023e-08, 3.72529e-09, -2.98023e-08, 1, 0, 3.72529
 
 [node name="Tip" type="Marker3D" parent="SpringArm3D/pole"]
 transform = Transform3D(1, 1.19209e-07, 3.72529e-09, 0, 1, 0, 1.11759e-08, -1.04308e-07, 1, 0.0956379, 1.99707, -0.0172495)
+
+[node name="SaggyRope" parent="SpringArm3D/pole/Tip" instance=ExtResource("4_fkybt")]
+resolution = 1.0
+tension = 1.0
 
 [node name="Sprite3D" type="Sprite3D" parent="SpringArm3D/pole"]
 texture = SubResource("AtlasTexture_fkybt")

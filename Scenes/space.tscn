@@ -1,33 +1,33 @@
-[gd_scene load_steps=20 format=4 uid="uid://ct13yojq35okq"]
+[gd_scene load_steps=22 format=4 uid="uid://ct13yojq35okq"]
 
 [ext_resource type="Script" uid="uid://baicr53a31gh5" path="res://Scripts/space.gd" id="1_e7mvc"]
 [ext_resource type="PackedScene" uid="uid://d1d4u455e56w2" path="res://Scenes/ground.tscn" id="2_2fo43"]
+[ext_resource type="Environment" uid="uid://ukpca47ypn3d" path="res://Scenes/space.tres" id="2_kqa63"]
 [ext_resource type="PackedScene" uid="uid://lrwh0vqdje4g" path="res://Scenes/player.tscn" id="3_wnfdr"]
 [ext_resource type="PackedScene" uid="uid://7qrxt0iwjoum" path="res://Scenes/lake_surface.tscn" id="4_wnfdr"]
 [ext_resource type="Script" uid="uid://cakawpbpbebv1" path="res://Scripts/lake_collision_area.gd" id="5_1fjq1"]
 [ext_resource type="Texture2D" uid="uid://b4t36dq4oyddl" path="res://Assets/ground_fish_texture.png" id="5_va77k"]
+[ext_resource type="Shader" uid="uid://b81cxic66aj6y" path="res://Assets/water.gdshader" id="6_sg02i"]
 [ext_resource type="Texture2D" uid="uid://b3roycd5goo5d" path="res://Assets/cactus_0_Untitled.png" id="6_uqc4w"]
 [ext_resource type="PackedScene" uid="uid://wk15s374ot2w" path="res://Scenes/dock.tscn" id="7_uqc4w"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_og2b5"]
-sky_top_color = Color(0.940766, 0.753874, 0.471181, 1)
-sky_horizon_color = Color(0.205387, 0.0670619, 0.255137, 1)
-ground_bottom_color = Color(0.0228908, 0.0167067, 0.0109028, 1)
-ground_horizon_color = Color(0.862243, 0.587866, 0.298484, 1)
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0b4c6"]
+load_path = "res://.godot/imported/image.png-2de165adb17dfebcee8a7cd6c9833936.s3tc.ctex"
 
-[sub_resource type="Sky" id="Sky_3beeg"]
-sky_material = SubResource("ProceduralSkyMaterial_og2b5")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4qykp"]
+render_priority = 0
+shader = ExtResource("6_sg02i")
+shader_parameter/slide_speed = 0.7
+shader_parameter/wobble_speed = 0.17
+shader_parameter/wobble_intensity = 0.4
+shader_parameter/texture_scale = 0.07
+shader_parameter/color1 = Color(0.43, 0.2866667, 0, 1)
+shader_parameter/water = SubResource("CompressedTexture2D_0b4c6")
 
-[sub_resource type="Environment" id="Environment_hg6w5"]
-background_mode = 2
-sky = SubResource("Sky_3beeg")
-tonemap_mode = 2
-fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0.729383, 0.65857, 0.455605, 1)
-fog_light_energy = 0.83
-fog_density = 0.4947
-fog_depth_begin = 30.0
+[sub_resource type="QuadMesh" id="QuadMesh_p268w"]
+material = SubResource("ShaderMaterial_4qykp")
+size = Vector2(90.09, 93.37)
+orientation = 1
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_wnfdr"]
 
@@ -126,7 +126,7 @@ spawn_area_scalar = 0.75
 spawn_range = 25.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_hg6w5")
+environment = ExtResource("2_kqa63")
 
 [node name="ground" parent="." instance=ExtResource("2_2fo43")]
 
@@ -137,6 +137,7 @@ max_sprint = 3.0
 
 [node name="LakeSurface" parent="." instance=ExtResource("4_wnfdr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, -2.42973, 7.65936)
+mesh = SubResource("QuadMesh_p268w")
 
 [node name="LakeCollisionArea" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.4166, -1.88086, 7.38815)
@@ -175,5 +176,7 @@ transform = Transform3D(-0.808914, 0, -0.587927, 0, 1, 0, 0.587927, 0, -0.808914
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0, 8)
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="."]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
